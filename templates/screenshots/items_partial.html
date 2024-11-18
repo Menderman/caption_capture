@@ -1,0 +1,15 @@
+<div class="subtitle-list">
+    {% for result in results %}
+        <div class="subtitle-item">
+            <div class="movie-title">{{ result.movie_title }} - Episode {{ result.movie_episode }}</div>
+            <img src="{{ result.screenshot_path.url }}" alt="Subtitle Screenshot">
+            <div class="subtitle-text">{{ result.subtitle_text }}</div>
+            <div class="frame-info">
+                <span>Start Frame:</span> {{ result.start_frame }} |
+                <span>End Frame:</span> {{ result.end_frame }}
+            </div>
+        </div>
+    {% empty %}
+        <p>目前沒有資料</p>
+    {% endfor %}
+</div>

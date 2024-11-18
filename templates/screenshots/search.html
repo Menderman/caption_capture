@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyGO 截圖搜尋</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .subtitle-item {
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .movie-title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .subtitle-text {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .frame-info {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .frame-info span {
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #999;
+        }
+
+        .subtitle-item img {
+            max-width: 100%;  /* 最大寬度為容器的寬度 */
+            height: auto;     /* 高度自動調整，保持圖片的比例 */
+            border-radius: 5px;  /* 圖片邊框圓角（可選） */
+        }
+
+        /* 額外的樣式，讓label與input對齊 */
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container label {
+            margin-right: 10px; /* 設定label與input之間的距離 */
+        }
+
+        .search-container input {
+            flex-grow: 1; /* 讓input自動填充剩餘空間 */
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>BanG Dream! It's MyGO!!!!! 截圖搜尋</h1>
+
+        <div id="search-container" class="search-container">
+            <label for="search-input">台詞搜尋：</label>
+            <input type="text" id="search-input" placeholder="請輸入搜尋內容">
+            
+            <select id="episode-select">
+                <option value="">選擇集數</option>
+                <option value="1">第 1,2,3 集</option>
+                <!--option value="2">第 2 集</option>
+                <option value="3">第 3 集</option-->
+                <option value="4">第 4 集</option>
+                <option value="5">第 5 集</option>
+                <option value="6">第 6 集</option>
+                <option value="7">第 7 集</option>
+                <option value="8">第 8 集</option>
+                <option value="9">第 9 集</option>
+                <option value="10">第 10 集</option>
+                <option value="11">第 11 集</option>
+                <option value="12">第 12 集</option>
+                <option value="13">第 13 集</option>
+            </select>
+
+            <button id="load-items-btn">搜尋</button>
+        </div>
+
+        <div id="items-container"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#load-items-btn").click(function() {
+                var queryParam = $('#search-input').val();
+                var episodeParam = $('#episode-select').val();
+                $.ajax({
+                    url: "/load-searchItems/",
+                    type: "GET",
+                    data: { 
+                        query: queryParam,
+                        episode: episodeParam,
+                    },
+                    success: function(response) {
+                        // 將回傳的 HTML 插入到 items-container 中
+                        console.log("return：" + response);
+                        $("#items-container").html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("發生錯誤：" + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
